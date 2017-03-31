@@ -10,7 +10,7 @@ public class P1Client {
    
    public void connectToServer() throws IOException {
       String serverAddress = "127.0.0.1";
-      //serverAddress = "140.112.18.178";
+      serverAddress = "140.112.18.178";
       int port = 9090;
       // TODO: clientSocket = ?
       clientSocket = new Socket(serverAddress, port);
