@@ -10,15 +10,16 @@ class UDPClient {
         InetAddress serverIP = InetAddress.getByName("127.0.0.1");
 
         for(int i = 1; i <= 10000; ++i) {
-            String sentence = "Hello";
+            String sentence = "Hello from Client\n";
             byte[] bytes = sentence.getBytes();
             DatagramPacket sendPkt =
                 new DatagramPacket(bytes, bytes.length, serverIP, 9091);
             clientSocket.send(sendPkt);
 
             /* Suspend for 1us */
-            Thread.sleep(1); /*Prevent client side buffer overflow. */
+            // Thread.sleep(1); /*Prevent client side buffer overflow. */
         }
+
         clientSocket.close();
     }
 }
