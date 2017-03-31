@@ -10,7 +10,7 @@ class UDPClient {
         InetAddress serverIP = InetAddress.getByName("127.0.0.1");
 
         for(int i = 1; i <= 10000; ++i) {
-            String sentence = "Hello from Client\n";
+            String sentence = "Hello from Client, Index of this package: " + i;
             byte[] bytes = sentence.getBytes();
             DatagramPacket sendPkt =
                 new DatagramPacket(bytes, bytes.length, serverIP, 9091);

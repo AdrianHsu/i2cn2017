@@ -17,7 +17,10 @@ class UDPServer {
             } catch (SocketTimeoutException ste) {
                 System.out.println("### Timed out after 5 seconds");
                 if(rcvdPktNum != 0) break;
-                else continue;
+                else {
+                    System.out.println("### Client Not Ready, continue.");
+                    continue;
+                }
             }
             String sentence = new String(rcvdPkt.getData());
             InetAddress ipAddr = rcvdPkt.getAddress();
