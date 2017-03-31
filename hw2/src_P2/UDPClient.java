@@ -12,8 +12,8 @@ class UDPClient {
         // 2. mslab workstation (CSIE Department, prof. Shou-De Lin)
         // InetAddress serverIP = InetAddress.getByName("140.112.31.184");
 
-        // 3. Amazon AWS EC2 Services (Zone: us-west-2a, 52.41.77.129)
-        InetAddress serverIP = InetAddress.getByName("52.41.77.129");
+        // 3. Amazon AWS EC2 Services (Zone: us-west-2a, 54.70.108.108)
+        InetAddress serverIP = InetAddress.getByName("ec2-54-70-108-108.us-west-2.compute.amazonaws.com");
 
         for(int i = 1; i <= 10000; ++i) {
             String sentence = "Hello from Client, Index of this package: " + i;
