@@ -7,7 +7,7 @@ class UDPServer {
         DatagramSocket serverSocket = new DatagramSocket(9091);
         int rcvdPktNum = 0;
         int lostPktNum = 0;
-        System.out.println("Server Ready..");
+        System.out.println("Server Ready...");
         while (true) {
             DatagramPacket rcvdPkt =
                 new DatagramPacket(new byte[128], 128);
