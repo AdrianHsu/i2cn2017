@@ -1,3 +1,4 @@
+//references:
 //http://ducslectures.blogspot.tw/p/blog-page_20.html
 //http://www2.ic.uff.br/~michael/kr1999/4-network/4_02-algor.htm
 //https://pl4programs.blogspot.tw/2015/04/implementation-of-distance-vector.html
@@ -7,39 +8,51 @@
 using namespace std;
 
 #define inf INT_MAX
-
+#define NUM 9
 struct node
 {
-   unsigned dist[9];
-   unsigned from[9];
-} DVR[9];
+   unsigned dist[NUM];
+   unsigned from[NUM];
+} DVR[NUM];
 int main()
 {
-   unsigned costmat[9][9] = { { 0, 4, inf, inf, inf, inf, inf, 8, inf },
-                         { 4, 0, 8, inf, inf, inf, inf, 11, inf },
-                         { inf, 8, 0, 7, inf, 4, inf, inf, 2 },
-                         { inf, inf, 7, 0, 9, 14, inf, inf, inf },
-                         { inf, inf, inf, 9, 0, 10, inf, inf, inf },
-                         { inf, inf, 4, 14, 10, 0, 2, inf, inf },
-                         { inf, inf, inf, inf, inf, 2, 0, 1, 6 },
-                         { 8, 11, inf, inf, inf, inf, 1, 0, 7 },
-                         { inf, inf, 2, inf, inf, inf, 6, 7, 0} };
-   int nodes = 9, i, j, k;
+   // cost matrix
+   unsigned costmat[NUM][NUM] = {{ 0, 4, inf, inf, inf, inf, inf, 8, inf },
+                             { 4, 0, 8, inf, inf, inf, inf, 11, inf },
+                             { inf, 8, 0, 7, inf, 4, inf, inf, 2 },
+                             { inf, inf, 7, 0, 9, 14, inf, inf, inf },
+                             { inf, inf, inf, 9, 0, 10, inf, inf, inf },
+                             { inf, inf, 4, 14, 10, 0, 2, inf, inf },
+                             { inf, inf, inf, inf, inf, 2, 0, 1, 6 },
+                             { 8, 11, inf, inf, inf, inf, 1, 0, 7 },
+                             { inf, inf, 2, inf, inf, inf, 6, 7, 0}};
 
-   for(i = 0; i < nodes; i++)
+   int i, j, k;
+   // initialization:
+   for(i = 0; i < NUM; i++)
     {
-       for(j = 0; j < nodes; j++)
+       for(j = 0; j < NUM; j++)
        {
-           DVR[i].dist[j] = costmat[i][j]; //initialise the distance equal to cost matrix
+           DVR[i].dist[j] = costmat[i][j];
            DVR[i].from[j] = j;
        }
    }
-   for(i = 0; i < nodes; i++) {//We choose arbitary vertex k and we calculate the
-   //direct distance from the node i to k using the cost matrix and add the distance from k to node j
-       for(j = 0; j < nodes; j++) {
-           for(k = 0; k < nodes; k++) {
+   cout << "----------- initial distance vectors -----------" << endl;
+   for(i = 0; i < NUM; i++)
+   {
+       cout << "\n\n For router: " << i;
+       for(j = 0; j < NUM; j++) {
+
+           cout << "\t\n (node " << j << " via " << DVR[i].from[j] << ") The distance is: ";
+           if(DVR[i].dist[j] == INT_MAX) cout << "inf";
+           else cout << DVR[i].dist[j];
+       }
+   }
+   for(i = 0; i < NUM; i++) {
+       for(j = 0; j < NUM; j++) {
+           for(k = 0; k < NUM; k++) {
                if(DVR[i].dist[j] > costmat[i][k] + DVR[k].dist[j])
-               {   //We calculate the minimum distance
+               {
                    DVR[i].dist[j] = DVR[i].dist[k] + DVR[k].dist[j];
                    DVR[j].dist[i] = DVR[i].dist[j];
                    DVR[i].from[j] = k;
@@ -48,11 +61,12 @@ int main()
            }
        }
    }
-   for(i = 0; i < nodes; i++)
+   cout << "\n\n----------- When the algorithm converges -----------" << endl;
+   for(i = 0; i < NUM; i++)
    {
-       cout<<"\n\n For router: "<<i;
-       for(j = 0; j < nodes; j++)
-           cout<<"\t\n node "<<j<<" via "<<DVR[i].from[j]<<" Distance "<<DVR[i].dist[j];
+       cout << "\n\n For router: " << i;
+       for(j = 0; j < NUM; j++)
+       cout << "\t\n (node " << j << " via " << DVR[i].from[j] << ") The distance is: " << DVR[i].dist[j];
    }
    cout<<" \n\n ";
    return 0;
