@@ -36,7 +36,7 @@ int main()
    }
    for(i = 0; i < nodes; i++) {//We choose arbitary vertex k and we calculate the
    //direct distance from the node i to k using the cost matrix and add the distance from k to node j
-       for(j = i+1; j < nodes; j++) {
+       for(j = 0; j < nodes; j++) {
            for(k = 0; k < nodes; k++) {
                if(DVR[i].dist[j] > costmat[i][k] + DVR[k].dist[j])
                {   //We calculate the minimum distance
