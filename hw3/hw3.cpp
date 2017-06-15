@@ -40,23 +40,29 @@ int main()
    cout << "----------- initial distance vectors -----------" << endl;
    for(i = 0; i < NUM; i++)
    {
-       cout << "\n\n For router: " << i;
+       cout << "For router: " << i << endl;
+       cout << "[";
        for(j = 0; j < NUM; j++) {
 
-           cout << "\t\n (node " << j << " via " << DVR[i].from[j] << ") The distance is: ";
            if(DVR[i].dist[j] == INT_MAX) cout << "inf";
            else cout << DVR[i].dist[j];
+           if(j != NUM - 1)
+              cout << ", ";
        }
+       cout << "]" << endl;
    }
-   for(i = 0; i < NUM; i++) {
-       for(j = 0; j < NUM; j++) {
-           for(k = 0; k < NUM; k++) {
-               if(DVR[i].dist[j] > costmat[i][k] + DVR[k].dist[j])
-               {
-                   DVR[i].dist[j] = DVR[i].dist[k] + DVR[k].dist[j];
-                   DVR[j].dist[i] = DVR[i].dist[j];
-                   DVR[i].from[j] = k;
-                   DVR[j].from[i] = k;
+   // bellman_ford
+   for(int a = 0; a < 100; a ++) {
+       for(i = 0; i < NUM; i++) {
+           for(j = 0; j < NUM; j++) {
+               for(k = 0; k < NUM; k++) {
+                   if(DVR[i].dist[j] > costmat[i][k] + DVR[k].dist[j])
+                   {
+                       DVR[i].dist[j] = DVR[i].dist[k] + DVR[k].dist[j];
+                       DVR[j].dist[i] = DVR[i].dist[j];
+                       DVR[i].from[j] = k;
+                       DVR[j].from[i] = k;
+                   }
                }
            }
        }
@@ -64,10 +70,16 @@ int main()
    cout << "\n\n----------- When the algorithm converges -----------" << endl;
    for(i = 0; i < NUM; i++)
    {
-       cout << "\n\n For router: " << i;
-       for(j = 0; j < NUM; j++)
-       cout << "\t\n (node " << j << " via " << DVR[i].from[j] << ") The distance is: " << DVR[i].dist[j];
+       cout << "For router: " << i << endl;
+       cout << "[";
+       for(j = 0; j < NUM; j++) {
+
+           if(DVR[i].dist[j] == INT_MAX) cout << "inf";
+           else cout << DVR[i].dist[j];
+           if(j != NUM - 1)
+              cout << ", ";
+       }
+       cout << "]" << endl;
    }
-   cout<<" \n\n ";
    return 0;
 }
